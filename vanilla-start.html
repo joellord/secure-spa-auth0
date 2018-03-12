@@ -40,12 +40,6 @@
         <div class="col-2"></div>
     </div>
 
-    <div class="row justify-content-center">
-        <div class="col-4 text-center">
-            <img src="http://http.cat/200" id="httpcat" width="350px"/>
-        </div>
-    </div>
-
 </div>
 
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog">
@@ -84,10 +78,9 @@
 
 
 <script>
-    const SERVER_URL = "https://wt-13aebf4eeaa9913542725d4a90e4d49e-0.run.webtask.io/auth-server";
-
-    //Reset token
-    localStorage.removeItem("access_token");
+    const API_URL = "https://wt-13aebf4eeaa9913542725d4a90e4d49e-0.run.webtask.io/clickbaiter";
+    const AUTH_URL = "https://wt-13aebf4eeaa9913542725d4a90e4d49e-0.run.webtask.io/auth-server";
+    const API_AUTH0_URL = "https://wt-13aebf4eeaa9913542725d4a90e4d49e-0.run.webtask.io/clickbaiter-auth0";
 
     const alertBox = document.querySelector(".alert");
     const headlineBtn = document.querySelector("#headline");
@@ -95,54 +88,86 @@
     const loginBtn = document.querySelector("#loginBtn");
     const loginModalBtn = document.querySelector("#loginModalBtn");
     const logoutBtn = document.querySelector("#logoutBtn");
-    const httpCat = document.querySelector("#httpcat");
 
-    headlineBtn.addEventListener("click", (event) => {
-        fetch(SERVER_URL + "/api/quote").then(resp => {
-            httpCat.src = "http://http.cat/" + resp.status;
-            return resp.text();
-        }).then((body) => {
-            alertBox.innerText = body;
-        })
+    headlineBtn.addEventListener("click", () => {
+        /*
+        fetch(API_URL + "/headline")
+            .then(resp => resp.text())
+            .then((data) => {
+                alertBox.innerHTML = data;
+            });
+        */
+        fetch(API_URL + "/headline")
+            .then(resp => resp.text())
+            .then((data) => {
+                alertBox.innerHTML = data;
+            });
     });
 
-    secretBtn.addEventListener("click", (event) => {
+    secretBtn.addEventListener("click", () => {
+        /*
         let headers = localStorage.getItem("access_token") ? {
-            "Authorization": "Bearer " + localStorage.getItem("access_token")
+          "Authorization": "Bearer " + localStorage.getItem("access_token")
         } : {};
-        fetch(SERVER_URL + "/api/protected/quote", {
-            headers
-        }).then(resp => {
-            httpCat.src = "http://http.cat/" + resp.status;
-            return resp.text();
-        }).then((body) => {
-            alertBox.innerHTML = body;
-        });
+        fetch(API_URL + "/protected/headline", {headers})
+            .then(resp => resp.text())
+            .then((data) => {
+                alertBox.innerHTML = data;
+            });
+        */
+        let headers = localStorage.getItem("access_token") ? {
+          "Authorization": "Bearer " + localStorage.getItem("access_token")
+        } : {};
+        fetch(API_URL + "/protected/headline", {headers})
+            .then(resp => resp.text())
+            .then((data) => {
+                alertBox.innerHTML = data;
+            });
     });
 
-    logoutBtn.addEventListener("click", (event) => {
+    logoutBtn.addEventListener("click", () => {
+        /*
+        loggedOut();
+        */
         loggedOut();
     });
 
-    loginBtn.addEventListener("click", (event) => {
+    loginBtn.addEventListener("click", () => {
+        /*
         fetch(SERVER_URL + "/login", {
             method: "POST",
             headers: {
                 "Content-type": "application/json",
                 "accept": "application/json",
             },
-            body: JSON.stringify({username: document.querySelector("#username").value, password: document.querySelector("#password").value})
-        }).then(resp => {
-            httpCat.src = "http://http.cat/" + resp.status;
-            return resp.text();
-        }).then((body) => {
+            body: JSON.stringify({
+                username: document.querySelector("#username").value,
+                password: document.querySelector("#password").value
+            })
+        }).then(resp => resp.text()).then((body) => {
             try {
                 let resp = JSON.parse(body);
                 loggedIn(resp.token);
-            } catch(e) {
+            } catch (e) {
                 alertBox.innerHTML = body;
             }
+        });
+        */
+        fetch(AUTH_URL + "/login", {
+            method: "POST",
+            body: JSON.stringify({
+                username: document.querySelector("#username").value,
+                password: document.querySelector("#password").value
+            }),
+            headers: {
+                "Content-type": "application/json",
+                "accept": "application/json"
+            }
         })
+            .then(resp => resp.json())
+            .then((data) => {
+                loggedIn(data.token);
+            });
     });
 
     function loggedIn(token) {

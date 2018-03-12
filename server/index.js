@@ -8,7 +8,8 @@ var JWT_SECRET = "patatepoil";
 var app = express();
 
 // User database
-var users = [{id: 1, username: "joellord", password: "joellord"}];
+var users = [{id: 1, username: "joellord", password: "joellord", scope: "awesome"},
+    {id: 2, username: "guest", password: "guest", scope: ""}];
 
 app.use(bodyParser.json());
 
@@ -19,7 +20,13 @@ var jwtCheck = expressjwt({
 app.use('/api/protected', jwtCheck);
 
 app.get("/api/protected/quote", function(req, res) {
-    res.status(200).send(randopeep.clickbait.headline("Joel Lord"));
+    console.log(req.user);
+    if (req.user && req.user.scope && req.user.scope.indexOf("awesome") > -1) {
+        res.status(200).send(randopeep.clickbait.headline("Joel Lord"));
+    } else {
+        res.status(403).send("You are logged in but not authorized to view awesome headlines");
+    }
+
 });
 
 app.get("/api/quote", function(req, res) {
@@ -35,7 +42,9 @@ app.post("/login", function(req, res) {
 
     if (!user) return res.status(401).send("Invalid username or password");
 
-    var token = jwt.sign({id: user.id, username: user.username}, JWT_SECRET, {expiresIn: "15 minutes"});
+    var userData = {id: user.id, username: user.username, scope: user.scope};
+
+    var token = jwt.sign(userData, JWT_SECRET, {expiresIn: "15 minutes"});
     res.status(200).send({
         token: token
     });

@@ -7,44 +7,57 @@
 <div class="container container-fluid">
     <nav class="navbar navbar-light bg-light justify-content-between">
         <a class="navbar-brand">Secure your SPA</a>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="#">Main Page</a>
+                <a href="#secret">Secret</a>
+            </li>
+        </ul>
         <form class="form-inline">
             <button class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#loginModal" type="button" id="loginModalBtn">Login</button>&nbsp;
             <button class="btn btn-outline-danger d-none" id="logoutBtn">Logout</button>
         </form>
     </nav>
 
-    <div class="row">
-        <div class="col-1"></div>
-        <div class="col-10 text-center">
-            <p>Welcome to the headline generator application.  Click on the buttons to get a headline</p>
+    <span id="mainPage">
+
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10 text-center">
+                <p>Welcome to the headline generator application.  Click on the buttons to get a headline</p>
+            </div>
+            <div class="col-1"></div>
         </div>
-        <div class="col-1"></div>
-    </div>
 
-    <div class="row">
-        <div class="col-12 text-center">
-            <button class="btn btn-lg btn-primary" id="headline">Get a headline</button>&nbsp;
-            <button class="btn btn-lg btn-secondary" id="secret">Awesome headline</button>
-        </div>
-    </div>
-
-    <div class="row">&nbsp;</div>
-
-    <div class="row">
-        <div class="col-2"></div>
-        <div class="col-8">
-            <div class="alert alert-dark" style="overflow-wrap: break-word">
-                Headline goes here
+        <div class="row">
+            <div class="col-12 text-center">
+                <button class="btn btn-lg btn-primary" id="headline">Get a headline</button>&nbsp;
+                <button class="btn btn-lg btn-secondary" id="secret">Awesome headline</button>
             </div>
         </div>
-        <div class="col-2"></div>
-    </div>
 
-    <div class="row justify-content-center">
-        <div class="col-4 text-center">
-            <img src="http://http.cat/200" id="httpcat" width="350px"/>
+        <div class="row">&nbsp;</div>
+
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div class="alert alert-dark" style="overflow-wrap: break-word">
+                    Headline goes here
+                </div>
+            </div>
+            <div class="col-2"></div>
         </div>
-    </div>
+
+        <div class="row justify-content-center">
+            <div class="col-4 text-center">
+                <img src="http://http.cat/200" id="httpcat" width="350px"/>
+            </div>
+        </div>
+    </span>
+
+    <span id="secretPage" class="d-none">
+        This is a secret area!
+    </span>
 
 </div>
 
@@ -156,6 +169,34 @@
         localStorage.removeItem("access_token");
         loginModalBtn.classList.remove("d-none");
         logoutBtn.classList.add("d-none");
+    }
+
+    function isLoggedIn() {
+        return !!localStorage.getItem("access_token");
+    }
+
+    function routing(route) {
+        const routes = [{
+            name: "main",
+            isProtected: false
+        }, {
+            name: "secret",
+            isProtected: true
+        }];
+        routes.map((r) => {document.querySelector(`#${r.name}Page`).classList.add("d-none")});
+        const selectedRoute = routes.find((r) => r.name === route);
+        let displaySection = "mainPage";
+        if (selectedRoute && selectedRoute.isProtected && isLoggedIn()) {
+            displaySection = selectedRoute.name + "Page";
+        }
+        if (selectedRoute && !selectedRoute.isProtected) {
+            displaySection = selectedRoute.name + Page;
+        }
+        document.querySelector("#" + displaySection).classList.remove("d-none");
+    }
+
+    window.onhashchange = (event) => {
+        routing(location.hash.replace("#", ""));
     }
 
 </script>
