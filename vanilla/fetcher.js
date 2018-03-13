@@ -11,6 +11,8 @@ const fetcher = (url, options) => {
       body: JSON.stringify(UIUpdate.getUsernamePassword())
     }
   } else {
+
+    // Check for an access token and add the header to the request
     fetchOpt.headers = (accessToken) ? {"Authorization": "Bearer " + accessToken} : {};
   }
 

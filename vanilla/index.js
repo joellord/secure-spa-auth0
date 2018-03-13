@@ -28,11 +28,3 @@ logoutBtn.addEventListener("click", (event) => {
 loginBtn.addEventListener("click", (event) => {
   auth.login().then(() => UIUpdate.loggedIn());
 });
-
-router.addRoute([{
-  name: "main",
-  isProtected: false
-}, {
-  name: "secret",
-  isProtected: true
-}]);

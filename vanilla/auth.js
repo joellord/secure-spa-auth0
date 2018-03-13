@@ -16,10 +16,7 @@ auth.logout = () => {
   localStorage.removeItem("access_token");
 };
 
-auth.isLoggedIn = () => {
-  return !!localStorage.getItem(ACCESS_TOKEN);
-};
-
+// loginTradition sends a POST request to the auth server
 auth.loginTraditional = () => {
   return fetcher(AUTH_URL + "/login", {method: "POST"})
       .then((body) => {
@@ -35,6 +32,12 @@ auth.loginTraditional = () => {
       });
 };
 
+// isLoggedIn return true if we have a token in localstorage
+auth.isLoggedIn = () => {
+  return !!localStorage.getItem(ACCESS_TOKEN);
+};
+
+// Connection details for Auth0 - Copy & pasted from the quick start
 let webAuth = new auth0.WebAuth({
   domain: 'joel-1.auth0.com',
   clientID: 'UF5d0t8oFPhWQLkzkLu192FW9WH8jK0k',
@@ -44,11 +47,13 @@ let webAuth = new auth0.WebAuth({
   redirectUri: window.location.href
 });
 
+// Uses auth0-js wrapper
 auth.loginAuth0 = () => {
   webAuth.authorize();
   return Promise.resolve();
 };
 
+// Parses the hash info on redirect and extracts the
 auth.parseHash = () => {
   let hash = window.location.hash.substr(0,1) == "#" ? window.location.hash.substr(1) : window.location.hash;
   let queryParams = {};
@@ -61,7 +66,7 @@ auth.parseHash = () => {
     UIUpdate.loggedIn();
     UIUpdate.alertBox("Logged in<br>Access Token: " + queryParams.access_token + "<br>ID Token: " + queryParams.id_token);
   }
-  window.location.hash = "";
+  // window.location.hash = "";
 };
 
 window.addEventListener("DOMContentLoaded", auth.parseHash);
