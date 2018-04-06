@@ -5,7 +5,7 @@ var expressjwt = require("express-jwt");
 var cors = require("cors");
 var app = express();
 
-const useAuth0 = true;
+const useAuth0 = false;
 
 let jwtCheckOptions = {};
 
