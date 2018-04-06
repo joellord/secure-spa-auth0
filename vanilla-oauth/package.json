@@ -1,0 +1,14 @@
+{
+  "name": "vanilla",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently --kill-others \"npm run api\" \"npm run auth-with-login\" \"serve\"",
+    "api": "node ../server/api",
+    "auth": "node ../server/auth",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joel Lord",
+  "license": "MIT"
+}
