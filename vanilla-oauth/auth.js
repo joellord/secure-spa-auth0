@@ -13,6 +13,7 @@ auth.login = () => {
 
 auth.logout = () => {
   localStorage.removeItem("access_token");
+  localStorage.removeItem("id_token");
 };
 
 // loginTradition sends a POST request to the auth server
