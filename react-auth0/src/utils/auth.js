@@ -31,6 +31,7 @@ export function login() {
 
 export function logout() {
   localStorage.removeItem("access_token");
+  window.setState({isLoggedIn: false});
 }
 
 export function isLoggedIn() {

@@ -1,19 +1,9 @@
 import React, { Component } from "react";
 import { Navbar, Nav, NavItem, Button } from "react-bootstrap";
+import { login, logout } from "../utils/auth";
 
 class NavBar extends Component {
   render() {
-    const isLoggedIn = this.props.auth.isAuthenticated();
-    let button;
-    if (isLoggedIn) {
-      button = (
-          <Button bsStyle="danger" type="button" id="logoutBtn" onClick={this.props.auth.logout}>Logout</Button>
-      );
-    } else {
-      button = (
-          <Button bsStyle="success" type="button" id="loginBtn" onClick={this.props.auth.login}>Login</Button>
-      );
-    }
     return (
         <Navbar>
           <Navbar.Header>
@@ -31,7 +21,12 @@ class NavBar extends Component {
           </Nav>
           <Nav pullRight>
             <Navbar.Form>
-              { button }
+              { this.props.isLoggedIn && (
+                <Button bsStyle="danger" type="button" id="logoutBtn" onClick={logout}>Logout</Button>
+              )}
+              { !this.props.isLoggedIn && (
+                  <Button bsStyle="success" type="button" id="loginBtn" onClick={login}>Login</Button>
+              )}
             </Navbar.Form>
           </Nav>
         </Navbar>

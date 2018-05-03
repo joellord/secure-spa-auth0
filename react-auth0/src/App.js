@@ -4,6 +4,7 @@ import Callback from "./components/Callback";
 import Secret from "./components/Secret";
 import NotFound from "./components/NotFound";
 import NavBar from "./components/NavBar";
+import Unauthorized from "./components/Unauthorized";
 import './App.css';
 
 class App extends Component {
@@ -17,7 +18,7 @@ class App extends Component {
         mainComponent = <Callback/>;
         break;
       case "secret":
-        mainComponent = this.props.auth.isAuthenticated() ? <Secret {...this.props} /> : <NotFound/>;
+        mainComponent = this.props.auth.isAuthenticated() ? <Secret {...this.props} /> : <Unauthorized/>;
         break;
       default:
         mainComponent = <NotFound />;

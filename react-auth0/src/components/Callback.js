@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import Auth from "../Auth";
+import { parseHash } from "../utils/auth";
 
 class Callback extends Component {
   componentDidMount() {
-    const auth = new Auth();
-    auth.handleAuthentication();
+    parseHash();
+    window.location.href = window.location.origin;
   }
 
   render() {

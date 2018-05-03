@@ -44,7 +44,7 @@ class Main extends Component {
           <Row>
             <Col md={2}></Col>
             <Col md={8}>
-              <Alert bsStyle="info" style={{overflowWrap: "break-word"}}>{this.props.headline}</Alert>
+              <Alert bsStyle="info" style={{overflowWrap: "break-word"}}><span dangerouslySetInnerHTML={{__html: this.props.headline}}></span></Alert>
             </Col>
             <Col md={2}></Col>
           </Row>
