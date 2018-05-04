@@ -1,15 +1,20 @@
 import React, { Component } from "react";
-import { parseHash } from "../utils/auth";
+import { parseHash, getAccessToken, isLoggedIn } from "../utils/auth";
+import { Redirect } from "react-router-dom";
 
 class Callback extends Component {
-  componentDidMount() {
+  componentWillMount() {
     parseHash();
-    window.location.href = window.location.origin;
+    window.setState({headline: `Access Token: ${getAccessToken()}`, isLoggedIn: isLoggedIn()});
   }
 
   render() {
     return (
-        <div>Reticulating splines...</div>
+        <div>
+          Reticulating splines...
+          <Redirect to="/" push={true} />
+        </div>
+
     )
   }
 }

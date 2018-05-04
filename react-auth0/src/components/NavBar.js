@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Navbar, Nav, NavItem, Button } from "react-bootstrap";
 import { login, logout } from "../utils/auth";
+import { Link } from "react-router-dom";
 
 class NavBar extends Component {
   render() {
@@ -12,11 +13,11 @@ class NavBar extends Component {
             </Navbar.Brand>
           </Navbar.Header>
           <Nav>
-            <NavItem href="/">
-              Home
+            <NavItem>
+              <Link to="/">Home</Link>
             </NavItem>
-            <NavItem href="/secret">
-              Secret
+            <NavItem>
+              <Link to="/secret">Secret</Link>
             </NavItem>
           </Nav>
           <Nav pullRight>

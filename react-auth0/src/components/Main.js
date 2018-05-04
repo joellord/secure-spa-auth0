@@ -34,7 +34,7 @@ class Main extends Component {
             </Col>
             <Col md={1}></Col>
           </Row>
-          <Row>
+          <Row className="text-center">
             <Col md={12}>
               <Button bsStyle="primary" onClick={this.fetchHeadline}>Get a headline</Button>&nbsp;
               <Button onClick={this.fetchAwesomeHeadline}>Awesome headline</Button>
