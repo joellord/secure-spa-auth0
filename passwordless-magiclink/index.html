@@ -21,7 +21,7 @@
                 </li>
             </ul>
             <form class="form-inline">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="loginBtn">Login</button>&nbsp;
+                <button class="btn btn-outline-success my-2 my-sm-0" data-target="#loginModal" type="button" id="loginModalBtn">Login</button>&nbsp;
                 <button class="btn btn-outline-danger d-none" id="logoutBtn">Logout</button>
             </form>
         </div>
@@ -84,18 +84,14 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="username">Username</label>
+                        <label for="username">Email</label>
                         <input type="text" class="form-control" id="username">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" id="loginModalBtn">Login</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="loginBtn">Login</button>
             </div>
         </div>
     </div>

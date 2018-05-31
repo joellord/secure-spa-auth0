@@ -31,8 +31,7 @@ UIUpdate.alertBox = function(message) {
 
 UIUpdate.getUsernamePassword = function() {
   return {
-    username: document.querySelector("#username").value,
-    password: document.querySelector("#password").value
+    username: document.querySelector("#username").value
   }
 };
 

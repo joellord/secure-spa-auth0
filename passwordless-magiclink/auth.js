@@ -1,10 +1,14 @@
 const ACCESS_TOKEN = "access_token";
+const AUTH_URL = "http://localhost:8080";
 
 let auth = {};
-auth.useAuth0 = true;
 
 auth.login = () => {
-  return auth.loginAuth0();
+  if (auth.useAuth0) {
+    return auth.loginAuth0();
+  } else {
+    return auth.loginTraditional();
+  }
 };
 
 auth.logout = () => {
@@ -44,9 +48,26 @@ lock.on('authenticated', function(authResult) {
 
 // Uses auth0-js wrapper
 auth.loginAuth0 = () => {
-  // webAuth.authorize();
   lock.show();
   return Promise.resolve();
+};
+
+auth.loginTraditional = () => {
+  const userData = UIUpdate.getUsernamePassword();
+  const body = {
+    email: userData.username,
+    callback: window.location.href
+  };
+  return fetch(AUTH_URL + "/authorize", {method: "POST", body: JSON.stringify(body), headers: {"Content-type": "application/json"}})
+      .then((resp) => {
+        if (resp.status == 200) {
+          UIUpdate.alertBox("Magic Link sent via email");
+          return Promise.resolve(resp);
+        } else {
+          console.log("Something went wrong");
+          return Promise.reject(resp);
+        }
+      });
 };
 
 // Parses the hash info on redirect and extracts the
@@ -57,12 +78,12 @@ auth.parseHash = () => {
     param = param.split("=");
     queryParams[param[0]] = param[1];
   });
-  if (queryParams.access_token && queryParams.expires_in) {
+  if (queryParams.access_token) {
     localStorage.setItem(ACCESS_TOKEN, queryParams.access_token);
     UIUpdate.loggedIn();
     UIUpdate.alertBox("Logged in<br>Access Token: " + queryParams.access_token + "<br>ID Token: " + queryParams.id_token);
   }
-  // window.location.hash = "";
+  window.location.hash = "";
 };
 
 window.addEventListener("DOMContentLoaded", auth.parseHash);

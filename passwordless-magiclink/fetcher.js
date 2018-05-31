@@ -8,7 +8,7 @@ const fetcher = (url, options) => {
         "Content-type": "application/json",
         "accept": "application/json",
       },
-      body: JSON.stringify(UIUpdate.getUsernamePassword())
+      body: options.body || JSON.stringify(UIUpdate.getUsernamePassword())
     }
   } else {
 
