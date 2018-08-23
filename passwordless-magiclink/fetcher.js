@@ -3,6 +3,7 @@ const fetcher = (url, options) => {
   let fetchOpt = {};
   if (options && options.method === "POST") {
     fetchOpt = {
+      mode: 'no-cors',
       method: "POST",
       headers: {
         "Content-type": "application/json",

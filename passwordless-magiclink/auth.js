@@ -3,6 +3,14 @@ const AUTH_URL = "http://localhost:8080";
 
 let auth = {};
 
+// let tokenStorage = {
+//   store: {access_token: ""},
+//   getItem: (key) => this.store[key],
+//   setItem: (key, value) => this.store[key] = value,
+//   removeItem: (key) => this.store[key] = undefined
+// };
+let tokenStorage = localStorage;
+
 auth.login = () => {
   if (auth.useAuth0) {
     return auth.loginAuth0();
@@ -13,12 +21,12 @@ auth.login = () => {
 
 auth.logout = () => {
   lock.logout();
-  localStorage.removeItem("access_token");
+  tokenStorage.removeItem("access_token");
 };
 
-// isLoggedIn return true if we have a token in localstorage
+// isLoggedIn return true if we have a token in tokenStorage
 auth.isLoggedIn = () => {
-  return !!localStorage.getItem(ACCESS_TOKEN);
+  return !!tokenStorage.getItem(ACCESS_TOKEN);
 };
 
 // Connection details for Auth0 - Copy & pasted from the quick start
@@ -41,8 +49,8 @@ var lock = new Auth0LockPasswordless('GKMdfEsnB2gc9kaRln8KVmgHx5dKVZid', 'joel-1
 });
 
 lock.on('authenticated', function(authResult) {
-  localStorage.setItem('id_token', authResult.idToken);
-  localStorage.setItem('access_token', authResult.accessToken);
+  tokenStorage.setItem('id_token', authResult.idToken);
+  tokenStorage.setItem('access_token', authResult.accessToken);
 });
 
 
@@ -79,7 +87,7 @@ auth.parseHash = () => {
     queryParams[param[0]] = param[1];
   });
   if (queryParams.access_token) {
-    localStorage.setItem(ACCESS_TOKEN, queryParams.access_token);
+    tokenStorage.setItem(ACCESS_TOKEN, queryParams.access_token);
     UIUpdate.loggedIn();
     UIUpdate.alertBox("Logged in<br>Access Token: " + queryParams.access_token + "<br>ID Token: " + queryParams.id_token);
   }

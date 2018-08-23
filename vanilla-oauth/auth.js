@@ -56,7 +56,7 @@ auth.parseHash = () => {
     UIUpdate.loggedIn();
     UIUpdate.alertBox("Logged in<br>Access Token: " + queryParams.access_token + "<br>ID Token: " + queryParams.id_token);
   }
-  // window.location.hash = "";
+  window.location.hash = "";
 };
 
 window.addEventListener("DOMContentLoaded", auth.parseHash);

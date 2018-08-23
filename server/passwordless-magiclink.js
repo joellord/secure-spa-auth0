@@ -6,6 +6,8 @@ const cors = require("cors");
 const postmark = require("postmark");
 
 const app = express();
+app.use(cors());
+
 const PORT = 8080;
 const POSTMARK_API = "b0c72a3a-8698-431a-8490-25f79b40cf2c";
 
@@ -18,7 +20,6 @@ const users = [
 const magicLinks = {};
 
 app.use(bodyParser.json());
-app.use(cors());
 
 app.post("/authorize", (req, res) => {
   //No email in request body, return 400
@@ -33,6 +34,7 @@ app.post("/authorize", (req, res) => {
   //Check for a callback
   let callback = req.body.callback;
   if (callback.substr(-1) === "?") callback = callback.substr(0, callback.length-1);
+  if (callback.substr(-1) === "#") callback = callback.substr(0, callback.length-1);
   if (callback.substr(-1) === "/") callback = callback.substr(0, callback.length-1);
 
   //Create a magic link
@@ -61,6 +63,7 @@ app.post("/authorize", (req, res) => {
 });
 
 app.get("/login/:magicLink", (req, res) => {
+  console.log("Validate Magic Link");
   //Get the magic link id
   const magicLink = magicLinks[req.params.magicLink];
 
@@ -68,7 +71,7 @@ app.get("/login/:magicLink", (req, res) => {
   magicLinks[req.params.magicLink] = undefined;
 
   //No match found for magic link, return 401
-  if (!magicLink) return res.status(401).send("Nope");
+  if (!magicLink) return res.status(400).send("<img src='http://http.cat/400'>");
 
   //Create a token
   const token = jwt.sign({
@@ -80,6 +83,7 @@ app.get("/login/:magicLink", (req, res) => {
 
   //Redirect to the matching callback with the token
   const redirectUrl = `${magicLink.callback}/#access_token=${token}`;
+  console.log("Redirecting user to " + redirectUrl);
   res.redirect(redirectUrl);
 });
 
