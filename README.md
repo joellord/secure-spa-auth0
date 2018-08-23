@@ -15,3 +15,4 @@ Code examples for my *Secure your SPA with Auth0* presentation
 ## WTH is a JWT
 
 * Charm City JS, May 2018, [Meetup Page](https://www.meetup.com/charmcityjs/events/zknhppyxhbdb/), [Slides](https://www.slideshare.net/JoelLord4/wth-is-a-jwt)
+* MidwestJS, August 2018 [Conference Site](http://midwestjs.com), [Slides](https://www.slideshare.net/JoelLord4/i-dont-care-about-security-and-neither-should-you-109369548)
