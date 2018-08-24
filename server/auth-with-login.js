@@ -9,6 +9,8 @@ var users = [
   {id: 2, username: "guest", password: "guest"}
 ];
 
+const HTTP_CAT_URL = "http://localhost:4444";
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/login", function(req, res) {
@@ -17,12 +19,12 @@ app.get("/login", function(req, res) {
 });
 
 app.post("/login", function(req, res) {
-  if (!req.body.username || !req.body.password) return res.status(400).send("Need username and password<br/><img src='https://http.cat/400' width='300px'/>");
+  if (!req.body.username || !req.body.password) return res.status(400).send(`Need username and password<br/><img src='${HTTP_CAT_URL}/400' width='300px'/>`);
 
   var user = users.find(function(u) {
     return u.username === req.body.username && u.password === req.body.password;
   });
-  if (!user) return res.status(401).send("User not found<br/><img src='https://http.cat/401' width='300px'/>");
+  if (!user) return res.status(401).send(`User not found<br/><img src='${HTTP_CAT_URL}/401' width='300px'/>`);
 
   var token = jwt.sign({
     sub: user.id,

@@ -1,4 +1,6 @@
 let UIUpdate = {};
+// const HTTP_CAT_URL = "http://http.cat";
+const HTTP_CAT_URL = "http://localhost:4444";
 
 UIUpdate.loggedIn = function(token) {
   UIUpdate.alertBox(`Just logged in<br>Token:<br>${localStorage.getItem("access_token")}`);
@@ -21,7 +23,7 @@ UIUpdate.routeChange = function() {
 
 UIUpdate.updateCat = function(status) {
   const httpCat = document.querySelector("#httpcat");
-  httpCat.src = "http://http.cat/" + status;
+  httpCat.src = `${HTTP_CAT_URL}/${status}`;
 };
 
 UIUpdate.alertBox = function(message) {

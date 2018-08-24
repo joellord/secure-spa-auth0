@@ -30,3 +30,6 @@ logoutBtn.addEventListener("click", (event) => {
 loginBtn.addEventListener("click", (event) => {
   auth.login().then(() => UIUpdate.loggedIn());
 });
+
+//Set the initial cat (in case we're offline)
+UIUpdate.updateCat(200);
