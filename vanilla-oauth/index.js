@@ -4,7 +4,7 @@ const API_AUTH0_URL = "http://localhost:8887";
 //Reset token
 localStorage.removeItem("access_token");
 
-auth.useAuth0 = false;
+auth.useAuth0 = true;
 let serverUrl = auth.useAuth0 ? API_AUTH0_URL : API_URL;
 
 const headlineBtn = document.querySelector("#headline");
