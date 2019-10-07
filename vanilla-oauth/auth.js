@@ -29,8 +29,8 @@ auth.isLoggedIn = () => {
 
 // Connection details for Auth0 - Copy & pasted from the quick start
 let webAuth = new auth0.WebAuth({
-  domain: 'joel-1.auth0.com',
-  clientID: 'UF5d0t8oFPhWQLkzkLu192FW9WH8jK0k',
+  domain: 'idontcare.auth0.com',
+  clientID: 'GAxhUIfJioDHPbsC3G6mvD9uSOPBgKFW',
   responseType: 'token id_token',
   audience: 'secure-spa-auth0',
   scope: 'openid profile',

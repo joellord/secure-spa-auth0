@@ -1,0 +1,48 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/home/jlord/.nvm/versions/node/v6.9.5/bin/node',
+1 verbose cli   '/home/jlord/.nvm/versions/node/v6.9.5/bin/npm',
+1 verbose cli   'run',
+1 verbose cli   'startall' ]
+2 info using npm@3.10.10
+3 info using node@v6.9.5
+4 verbose run-script [ 'prestartall', 'startall', 'poststartall' ]
+5 info lifecycle vanilla@1.0.0~prestartall: vanilla@1.0.0
+6 silly lifecycle vanilla@1.0.0~prestartall: no script for prestartall, continuing
+7 info lifecycle vanilla@1.0.0~startall: vanilla@1.0.0
+8 verbose lifecycle vanilla@1.0.0~startall: unsafe-perm in lifecycle true
+9 verbose lifecycle vanilla@1.0.0~startall: PATH: /home/jlord/.nvm/versions/node/v6.9.5/lib/node_modules/npm/bin/node-gyp-bin:/home/jlord/Code/secure-spa-auth0/vanilla-oauth/node_modules/.bin:/home/jlord/.nvm/versions/node/v6.9.5/bin:/home/jlord/.local/bin:/home/jlord/bin:/usr/share/Modules/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin
+10 verbose lifecycle vanilla@1.0.0~startall: CWD: /home/jlord/Code/secure-spa-auth0/vanilla-oauth
+11 silly lifecycle vanilla@1.0.0~startall: Args: [ '-c', 'concurrently --kill-others npm:run-* "serve"' ]
+12 silly lifecycle vanilla@1.0.0~startall: Returned: code: 1  signal: null
+13 info lifecycle vanilla@1.0.0~startall: Failed to exec startall script
+14 verbose stack Error: vanilla@1.0.0 startall: `concurrently --kill-others npm:run-* "serve"`
+14 verbose stack Exit status 1
+14 verbose stack     at EventEmitter.<anonymous> (/home/jlord/.nvm/versions/node/v6.9.5/lib/node_modules/npm/lib/utils/lifecycle.js:255:16)
+14 verbose stack     at emitTwo (events.js:106:13)
+14 verbose stack     at EventEmitter.emit (events.js:191:7)
+14 verbose stack     at ChildProcess.<anonymous> (/home/jlord/.nvm/versions/node/v6.9.5/lib/node_modules/npm/lib/utils/spawn.js:40:14)
+14 verbose stack     at emitTwo (events.js:106:13)
+14 verbose stack     at ChildProcess.emit (events.js:191:7)
+14 verbose stack     at maybeClose (internal/child_process.js:877:16)
+14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
+15 verbose pkgid vanilla@1.0.0
+16 verbose cwd /home/jlord/Code/secure-spa-auth0/vanilla-oauth
+17 error Linux 5.2.13-200.fc30.x86_64
+18 error argv "/home/jlord/.nvm/versions/node/v6.9.5/bin/node" "/home/jlord/.nvm/versions/node/v6.9.5/bin/npm" "run" "startall"
+19 error node v6.9.5
+20 error npm  v3.10.10
+21 error code ELIFECYCLE
+22 error vanilla@1.0.0 startall: `concurrently --kill-others npm:run-* "serve"`
+22 error Exit status 1
+23 error Failed at the vanilla@1.0.0 startall script 'concurrently --kill-others npm:run-* "serve"'.
+23 error Make sure you have the latest version of node.js and npm installed.
+23 error If you do, this is most likely a problem with the vanilla package,
+23 error not with npm itself.
+23 error Tell the author that this fails on your system:
+23 error     concurrently --kill-others npm:run-* "serve"
+23 error You can get information on how to open an issue for this project with:
+23 error     npm bugs vanilla
+23 error Or if that isn't available, you can get their info via:
+23 error     npm owner ls vanilla
+23 error There is likely additional logging output above.
+24 verbose exit [ 1, true ]

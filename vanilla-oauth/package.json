@@ -2,11 +2,12 @@
   "name": "vanilla",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.html",
   "scripts": {
-    "start": "concurrently --kill-others \"npm run api\" \"npm run auth\" \"serve\"",
-    "api": "node ../server/api",
-    "auth": "node ../server/auth-with-login",
+    "startall": "concurrently --kill-others npm:run-* \"serve\"",
+    "run-api": "nodemon ../server/api.js",
+    "run-api_auth0": "nodemon ../server/apiauth0.js",
+    "run-auth": "nodemon ../server/auth-with-login.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Joel Lord",
